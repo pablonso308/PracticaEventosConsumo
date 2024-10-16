@@ -1,0 +1,26 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Partie supérieure de l'ampoule (le globe) -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#FFEB3B"/> <!-- Couleur jaune pour l'ampoule -->
+            <size
+                android:width="100dp"
+                android:height="140dp" />
+            <stroke android:width="2dp" android:color="#FFA000"/> <!-- Bordure dorée -->
+        </shape>
+    </item>
+
+    <!-- Partie inférieure (le socle de l'ampoule) -->
+    <item
+        android:top="140dp"> <!-- Positionner le socle en bas du globe -->
+        <shape android:shape="rectangle">
+            <solid android:color="#BDBDBD"/> <!-- Couleur grise pour le socle -->
+            <size
+                android:width="60dp"
+                android:height="40dp" />
+            <stroke android:width="2dp" android:color="#616161"/> <!-- Bordure plus foncée -->
+        </shape>
+    </item>
+
+</layer-list>
