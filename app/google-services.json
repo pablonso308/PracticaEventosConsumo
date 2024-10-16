@@ -1,14 +1,14 @@
 {
   "project_info": {
-    "project_number": "597043147901",
-    "firebase_url": "https://appconsumo-41b74-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "appconsumo-41b74",
-    "storage_bucket": "appconsumo-41b74.appspot.com"
+    "project_number": "976891499152",
+    "firebase_url": "https://consumoenergio-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "consumoenergio",
+    "storage_bucket": "consumoenergio.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:597043147901:android:b23c7c16f2c58c05c22d14",
+        "mobilesdk_app_id": "1:976891499152:android:880da6a0e0a919f58efe15",
         "android_client_info": {
           "package_name": "com.example.consumoenergetico"
         }
@@ -16,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAH3gh3HvPmWLjqR4Krcg_4xBkd3Gi7zkw"
+          "current_key": "AIzaSyBP42LH8jRorRSl-SJ0TJXv9-nHeHoFZD0"
         }
       ],
       "services": {
