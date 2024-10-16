@@ -1,32 +1,13 @@
 {
   "project_info": {
-    "project_number": "364307244967",
-    "project_id": "consumo-d507d",
-    "storage_bucket": "consumo-d507d.appspot.com"
+    "project_number": "221072484879",
+    "project_id": "app-consumoenergetico-59416",
+    "storage_bucket": "app-consumoenergetico-59416.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:364307244967:android:5b31cf87512059b62d3882",
-        "android_client_info": {
-          "package_name": "com.example.consumo"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCRePOIH60QXePC4K08OWkMDud02TP-AO4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:364307244967:android:d2a3b85576d5cac12d3882",
+        "mobilesdk_app_id": "1:221072484879:android:e4d944111a64b47848517a",
         "android_client_info": {
           "package_name": "com.example.consumoenergetico"
         }
@@ -34,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCRePOIH60QXePC4K08OWkMDud02TP-AO4"
+          "current_key": "AIzaSyAeED0Wy0AX1qcfYq2-MYxiBShRXYsJ6NE"
         }
       ],
       "services": {

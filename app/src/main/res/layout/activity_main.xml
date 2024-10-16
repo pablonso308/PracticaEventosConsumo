@@ -20,12 +20,12 @@
         android:id="@+id/buttonToScreen1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ir a Pantalla 1" />
+        android:text="Ir a la grafica" />
 
     <Button
         android:id="@+id/buttonToScreen2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ir a Pantalla 2"
+        android:text="Ir al Registro Manual"
         android:layout_marginTop="10dp" />
 </LinearLayout>
