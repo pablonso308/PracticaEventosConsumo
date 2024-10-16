@@ -27,15 +27,42 @@ class Notificaciones(private val context: Context) {
         }
     }
 
-    fun createNotification() {
-        val builder = NotificationCompat.Builder(context, "Consumo")
-            .setSmallIcon(R.drawable.notification_icon)
-            .setContentTitle("Alto consumo !")
-            .setContentText("Se necesita reducir el consumo en la cocina, piense en apagar la luz !")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .build()
+    fun checkValuesAndNotify(value1: Int, value2: Int, value3: Int) {
+        val thresholdCocina = 100
+        val thresholdBano = 200
+        val thresholdSalon = 300
 
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(1, builder)
+        if (value1 > thresholdCocina) {
+            val builder = NotificationCompat.Builder(context, "Consumo")
+                .setSmallIcon(R.drawable.notification_icon)
+                .setContentTitle("Alto consumo !")
+                .setContentText("i Consumo alto en la cocina, piense en apagar la cocina !")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .build()
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.notify(1, builder)
+        }
+
+        if (value2 > thresholdBano) {
+            val builder = NotificationCompat.Builder(context, "Consumo")
+                .setSmallIcon(R.drawable.notification_icon)
+                .setContentTitle("Alto consumo !")
+                .setContentText("i Consumo alto en el baño, piense en apagar el secador de pelo !")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .build()
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.notify(1, builder)
+        }
+
+        if (value3 > thresholdSalon) {
+            val builder = NotificationCompat.Builder(context, "Consumo")
+                .setSmallIcon(R.drawable.notification_icon)
+                .setContentTitle("Alto consumo !")
+                .setContentText("i Consumo alto en el salon, piense en apagar la television !")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .build()
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.notify(1, builder)
+        }
     }
 }
