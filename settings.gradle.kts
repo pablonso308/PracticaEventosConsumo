@@ -8,17 +8,18 @@ pluginManagement {
             }
         }
         mavenCentral()
-        gradlePluginPortal()
+        gradlePluginPortal() // Manteniendo Gradle Plugin Portal
     }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
-        mavenCentral()
+        google()       // Repositorio de Google
+        mavenCentral() // Repositorio Maven Central
     }
 }
 
 rootProject.name = "ConsumoEnergetico"
 include(":app")
+
  

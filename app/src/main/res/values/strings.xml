@@ -1,6 +1,10 @@
 <resources>
+    <!-- Cadenas originales -->
     <string name="app_name">ConsumoEnergetico</string>
     <string name="channel_name">consumo</string>
     <string name="channel_description">Diferentes alertas de alto consumo</string>
     <string name="title_activity_grafica">Grafica</string>
+
+    <!-- Nueva cadena añadida -->
+    <string name="title_activity_registro_manual">Registro Manual</string>
 </resources>

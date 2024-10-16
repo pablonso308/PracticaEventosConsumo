@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Permisos necesarios -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
@@ -13,6 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ConsumoEnergetico"
         tools:targetApi="31">
+
+        <!-- Actividad principal -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -23,10 +27,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Actividad para gráficos -->
         <activity
             android:name=".Grafica"
             android:label="@string/title_activity_grafica"
             android:theme="@style/Theme.ConsumoEnergetico" />
+
+        <!-- Actividad para registro manual -->
+        <activity
+            android:name=".RegistroManual"
+            android:label="@string/title_activity_registro_manual"
+            android:theme="@style/Theme.ConsumoEnergetico" />
+
+        <!-- Otras actividades pueden ser añadidas aquí si las necesitas -->
+
     </application>
 
 </manifest>
