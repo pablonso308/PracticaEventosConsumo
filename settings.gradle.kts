@@ -16,10 +16,9 @@ dependencyResolutionManagement {
     repositories {
         google()       // Repositorio de Google
         mavenCentral() // Repositorio Maven Central
+        maven("https://jitpack.io") // Añadido el repositorio JitPack
     }
 }
 
 rootProject.name = "ConsumoEnergetico"
 include(":app")
-
- 

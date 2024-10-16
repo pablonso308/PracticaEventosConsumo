@@ -68,7 +68,9 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.firebase.database)
     implementation(libs.firebase.firestore.ktx)
-    implementation(libs.mpandroidchart)
+    dependencies {
+        implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    }
 
 
     testImplementation(libs.junit)
