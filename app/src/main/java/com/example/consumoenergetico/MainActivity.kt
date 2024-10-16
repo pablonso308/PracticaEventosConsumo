@@ -2,9 +2,15 @@ package com.example.consumoenergetico
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.auth.User
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -12,6 +18,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Llama al método para recoger los datos de Firebase
+        fetchDataFromFirebase()
 
         // Referencia al TextView donde aparecerá el saludo
         val greetingTextView: TextView = findViewById(R.id.greetingTextView)
@@ -37,6 +46,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
     // Función para determinar el saludo según la hora
     private fun getGreetingMessage(): String {
         val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
@@ -46,5 +57,32 @@ class MainActivity : AppCompatActivity() {
             in 18..21 -> "¡Buenas noches!"
             else -> "¡Hola!"
         }
+
     }
+
+    // Obtener referencia de la base de datos
+    val database = FirebaseDatabase.getInstance()
+    val myRef = database.getReference("users")
+
+    // Función para obtener los datos de la base de datos
+    private fun fetchDataFromFirebase() {
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("users")
+
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (postSnapshot in dataSnapshot.children) {
+                    val user = postSnapshot.getValue(User::class.java)
+                    Log.d("MainActivity", user.toString())
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("MainActivity", "Failed to read value.", error.toException())
+            }
+        })
+    }
+
+
+
 }
