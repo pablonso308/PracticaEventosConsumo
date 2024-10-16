@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ConsumoEnergetico</string>
+    <string name="title_activity_grafica">Grafica</string>
 </resources>
