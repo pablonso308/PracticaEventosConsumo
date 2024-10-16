@@ -52,7 +52,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:2.2.0")
+    implementation("androidx.core:core-ktx:1.10.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
