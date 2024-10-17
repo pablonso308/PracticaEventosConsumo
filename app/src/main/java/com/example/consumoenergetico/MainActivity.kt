@@ -1,5 +1,6 @@
 package com.example.consumoenergetico
 
+import RegistroManual
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,10 +11,14 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.firestore.auth.User
+import kotlinx.coroutines.tasks.await
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
+    private val database = FirebaseDatabase.getInstance()
+    private val myRef = database.getReference("consumos")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +41,19 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, RegistroManual::class.java)
             startActivity(intent)
         }
+
+        // Boton para simular una semana
+        val buttonSimulateWeek: Button = findViewById(R.id.buttonSimulateWeek)
+        buttonSimulateWeek.setOnClickListener {
+            RegistroManual { success ->
+                if (success) {
+                    Log.d("MainActivity", "Données envoyées avec succès.")
+                    fetchDataFromFirebase() // Récupérer les données après l'envoi
+                } else {
+                    Log.e("MainActivity", "Échec de l'envoi des données.")
+                }
+            }.execute() // Exécuter la tâche asynchrone
+        }
     }
 
     private fun getGreetingMessage(): String {
@@ -48,15 +66,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    val database = FirebaseDatabase.getInstance()
-    val myRef = database.getReference("users")
-
     private fun fetchDataFromFirebase() {
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (postSnapshot in dataSnapshot.children) {
-                    val user = postSnapshot.getValue(User::class.java)
-                    Log.d("MainActivity", user.toString())
+                    val consumo = postSnapshot.getValue(Consumo::class.java)
+                    Log.d("MainActivity", consumo.toString())
                 }
             }
 
@@ -66,3 +81,10 @@ class MainActivity : AppCompatActivity() {
         })
     }
 }
+
+
+public data class Consumo(
+    val dia: String = "",
+    val cuarto: String = "",
+    val consumo: Double = 0.0
+)
