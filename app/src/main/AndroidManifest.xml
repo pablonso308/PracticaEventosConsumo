@@ -34,13 +34,6 @@
             android:name=".Grafica"
             android:label="@string/title_activity_grafica"
             android:theme="@style/Theme.ConsumoEnergetico" />
-
-        <!-- Actividad para registro manual -->
-        <activity
-            android:name=".RegistroManual"
-            android:label="@string/title_activity_registro_manual"
-            android:theme="@style/Theme.ConsumoEnergetico" />
-
         <!-- Otras actividades pueden ser añadidas aquí si las necesitas -->
 
     </application>
