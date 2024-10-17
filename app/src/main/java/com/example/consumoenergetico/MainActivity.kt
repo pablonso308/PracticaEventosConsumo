@@ -36,12 +36,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val buttonToScreen2: Button = findViewById(R.id.buttonToScreen2)
-        buttonToScreen2.setOnClickListener {
-            val intent = Intent(this, RegistroManual::class.java)
-            startActivity(intent)
-        }
-
         // Boton para simular una semana
         val buttonSimulateWeek: Button = findViewById(R.id.buttonSimulateWeek)
         buttonSimulateWeek.setOnClickListener {

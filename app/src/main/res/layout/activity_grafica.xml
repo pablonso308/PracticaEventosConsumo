@@ -11,11 +11,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="¡Esta es la Pantalla 1!"
+        android:text="¡ Visualisacion de dotos!"
         android:textSize="24sp"
         android:layout_marginBottom="16dp" />
 
+
     <!-- Gráfico de barras -->
+
+    <Button
+        android:id="@+id/buttonToScreen1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ir al inicio" />
+
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
         android:layout_width="match_parent"

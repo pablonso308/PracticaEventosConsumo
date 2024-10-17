@@ -24,14 +24,9 @@
 
     <Button
         android:id="@+id/buttonSimulateWeek"
-        android:layout_width="wrap_content"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:text="Simular una semana" />
 
-    <Button
-        android:id="@+id/buttonToScreen2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ir al Registro Manual"
-        android:layout_marginTop="10dp" />
+
 </LinearLayout>

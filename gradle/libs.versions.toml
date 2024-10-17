@@ -12,7 +12,8 @@ composeBom = "2024.04.01"
 appcompat = "1.7.0"
 firebaseDatabase = "21.0.0"
 firebaseFirestoreKtx = "25.1.0"
-mpandroidchart = "3.1.0"  # Nueva versión para MPAndroidChart
+mpandroidchart = "3.1.0"
+firebaseInappmessaging = "21.0.0"  # Nueva versión para MPAndroidChart
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,6 +36,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
 mpandroidchart = { group = "com.github.PhilJay", name = "MPAndroidChart", version.ref = "mpandroidchart" }
+firebase-inappmessaging = { group = "com.google.firebase", name = "firebase-inappmessaging", version.ref = "firebaseInappmessaging" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
