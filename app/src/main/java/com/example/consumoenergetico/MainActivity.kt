@@ -47,10 +47,10 @@ class MainActivity : AppCompatActivity() {
         buttonSimulateWeek.setOnClickListener {
             RegistroManual { success ->
                 if (success) {
-                    Log.d("MainActivity", "Données envoyées avec succès.")
+                    Log.d("MainActivity", "Exitoso")
                     fetchDataFromFirebase() // Récupérer les données après l'envoi
                 } else {
-                    Log.e("MainActivity", "Échec de l'envoi des données.")
+                    Log.e("MainActivity", "Fracaso")
                 }
             }.execute() // Exécuter la tâche asynchrone
         }

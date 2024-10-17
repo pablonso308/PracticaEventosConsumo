@@ -4,7 +4,7 @@ import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RegistroManual(private val callback: (Boolean) -> Unit) : AsyncTask<Void, Void, Boolean>() {
+public class RegistroManual(private val callback: (Boolean) -> Unit) : AsyncTask<Void, Void, Boolean>() {
 
     private val database = FirebaseDatabase.getInstance()
     private val myRef = database.getReference("consumos")
