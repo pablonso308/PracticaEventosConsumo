@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         val buttonSimulateWeek: Button = findViewById(R.id.buttonSimulateWeek)
         buttonSimulateWeek.setOnClickListener {
+            resetRealtimeDatabase()
             RegistroManual { success ->
                 if (success) {
                     Log.d("MainActivity", "Envoi réussi")
@@ -93,6 +94,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun mostrarGrafico(consumoData: List<BarEntry>, dias: List<String>) {
     }
+}
+
+fun resetRealtimeDatabase() {
+    val database = FirebaseDatabase.getInstance()
+    val myRef = database.reference
+
+    // Pour supprimer tous les nœuds sous la référence racine
+    myRef.removeValue()
+        .addOnSuccessListener {
+            // Suppression réussie
+            Log.d("DatabaseSuccess", "Database reset successfully.")
+        }
+        .addOnFailureListener { e ->
+            // Gérer les erreurs
+            Log.w("DatabaseError", "Error resetting database: ", e)
+        }
 }
 
 data class Consumo(
