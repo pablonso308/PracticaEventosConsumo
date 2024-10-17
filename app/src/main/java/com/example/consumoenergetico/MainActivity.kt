@@ -7,12 +7,11 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.github.mikephil.charting.data.BarEntry
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.coroutines.tasks.await
-import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Appel à la méthode pour lire les données Firebase
         fetchDataFromFirebase()
 
         val greetingTextView: TextView = findViewById(R.id.greetingTextView)
@@ -36,17 +36,16 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Boton para simular una semana
         val buttonSimulateWeek: Button = findViewById(R.id.buttonSimulateWeek)
         buttonSimulateWeek.setOnClickListener {
             RegistroManual { success ->
                 if (success) {
-                    Log.d("MainActivity", "Exitoso")
-                    fetchDataFromFirebase() // Récupérer les données après l'envoi
+                    Log.d("MainActivity", "Envoi réussi")
+                    fetchDataFromFirebase()
                 } else {
-                    Log.e("MainActivity", "Fracaso")
+                    Log.e("MainActivity", "Échec de l'envoi")
                 }
-            }.execute() // Exécuter la tâche asynchrone
+            }.execute()
         }
     }
 
@@ -61,24 +60,44 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fetchDataFromFirebase() {
-        myRef.addValueEventListener(object : ValueEventListener {
+        val consumoData = ArrayList<BarEntry>()
+        val dias = ArrayList<String>()
+
+        val databaseReference = FirebaseDatabase.getInstance().getReference("consumo")
+
+        databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (postSnapshot in dataSnapshot.children) {
-                    val consumo = postSnapshot.getValue(Consumo::class.java)
-                    Log.d("MainActivity", consumo.toString())
+                consumoData.clear()
+                dias.clear()
+
+                var index = 0
+                for (snapshot in dataSnapshot.children) {
+                    val dia = snapshot.child("dia").getValue(String::class.java)
+                    val cuarto = snapshot.child("cuarto").getValue(String::class.java)
+                    val consumo = snapshot.child("consumo").getValue(Float::class.java)
+
+                    if (dia != null && consumo != null) {
+                        consumoData.add(BarEntry(index.toFloat(), consumo))
+                        dias.add("$dia - $cuarto")
+                        index++
+                    }
                 }
+                mostrarGrafico(consumoData, dias)
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.w("MainActivity", "Failed to read value.", error.toException())
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w("Firebase", "Échec de la lecture des données.", databaseError.toException())
             }
         })
     }
+
+    private fun mostrarGrafico(consumoData: List<BarEntry>, dias: List<String>) {
+    }
 }
 
-
-public data class Consumo(
+data class Consumo(
     val dia: String = "",
+    val id: String = "",
     val cuarto: String = "",
     val consumo: Double = 0.0
 )

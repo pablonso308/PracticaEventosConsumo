@@ -8,28 +8,29 @@ public class RegistroManual(private val callback: (Boolean) -> Unit) : AsyncTask
 
     private val database = FirebaseDatabase.getInstance()
     private val myRef = database.getReference("consumos")
-
     override fun doInBackground(vararg params: Void?): Boolean {
         val pieces = listOf("Cocina", "Salón", "Baño")
         val calendar = Calendar.getInstance()
         calendar.time = SimpleDateFormat("yyyy-MM-dd").parse("2024-10-15") // Début de la semaine
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         var success = true
-        //para una semana completa
+
+        var idCounter = 1
+
         for (i in 0 until 7) {
             val currentDate = dateFormat.format(calendar.time)
-            //hacer algo para cada cuarto de la casa
             for (piece in pieces) {
                 val consumo = generateRandomConsumption()
-                val newConsumo = Consumo(dia = currentDate, cuarto = piece, consumo = consumo)
-                //enviar datos a firebase
+                val id = "id$idCounter"
+
+                val newConsumo = Consumo(dia = currentDate, cuarto = piece, consumo = consumo, id = id)
                 try {
                     myRef.push().setValue(newConsumo)
-
                 } catch (e: Exception) {
                     success = false
                     break
                 }
+                idCounter++
             }
             calendar.add(Calendar.DAY_OF_MONTH, 1)
         }
