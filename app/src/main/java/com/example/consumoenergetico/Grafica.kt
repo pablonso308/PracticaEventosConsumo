@@ -1,83 +1,72 @@
-package com.example.consumoenergetico;
+package com.example.consumoenergetico
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.google.firebase.database.*
 
-import java.util.ArrayList;
+class Grafica : AppCompatActivity() {
 
-public class Grafica extends AppCompatActivity {
+    private lateinit var barChart: BarChart
+    private val TAG = "Grafica"
 
-    private static final String TAG = "Grafica";
-    private BarChart barChart;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_grafica)
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grafica);
+        barChart = findViewById(R.id.barChart)
 
-        barChart = findViewById(R.id.barChart);
+        // Botón para regresar a la pantalla principal
+        val buttonToScreen1: Button = findViewById(R.id.buttonToScreen1)
+        buttonToScreen1.setOnClickListener {
+            val intent = Intent(this@Grafica, MainActivity::class.java)
+            startActivity(intent)
+        }
 
-        Button buttonToScreen1 = findViewById(R.id.buttonToScreen1);
+        // Obtener referencia de la base de datos "consumo"
+        val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("consumo")
 
-        buttonToScreen1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Grafica.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+        // Escuchar cambios en la base de datos
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val consumoData = ArrayList<BarEntry>()
+                val dias = ArrayList<String>()
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("consumo");
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<BarEntry> consumoData = new ArrayList<>();
-                ArrayList<String> dias = new ArrayList<>();
-
-                int index = 0;
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String dia = snapshot.child("dia").getValue(String.class);
-                    Float consumo = snapshot.child("consumo").getValue(Float.class);
+                var index = 0
+                for (snapshot in dataSnapshot.children) {
+                    val dia = snapshot.child("dia").getValue(String::class.java)
+                    val consumo = snapshot.child("consumo").getValue(Float::class.java)
 
                     if (dia != null && consumo != null) {
-                        consumoData.add(new BarEntry(index, consumo));
-                        dias.add(dia);
-                        index++;
+                        consumoData.add(BarEntry(index.toFloat(), consumo))
+                        dias.add(dia)
+                        index++
                     }
                 }
-                mostrarGrafico(consumoData, dias);
+                mostrarGrafico(consumoData, dias)
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(TAG, "Échec de la lecture de la valeur.", databaseError.toException());
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w(TAG, "Error al leer los datos.", databaseError.toException())
             }
-        });
+        })
     }
-    
-    private void mostrarGrafico(ArrayList<BarEntry> consumoData, ArrayList<String> dias) {
-        BarDataSet barDataSet = new BarDataSet(consumoData, "Consumo por Día");
-        BarData barData = new BarData(barDataSet);
 
-        barChart.setData(barData);
-        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(dias));
-        barChart.getXAxis().setGranularity(1f);
-        barChart.invalidate();
+    // Método para mostrar el gráfico
+    private fun mostrarGrafico(consumoData: ArrayList<BarEntry>, dias: ArrayList<String>) {
+        val barDataSet = BarDataSet(consumoData, "Consumo por Día")
+        val barData = BarData(barDataSet)
+
+        barChart.data = barData
+        barChart.xAxis.valueFormatter = IndexAxisValueFormatter(dias)  // Mostrar los días en el eje X
+        barChart.xAxis.granularity = 1f  // Asegurar que se muestre cada día
+        barChart.invalidate()  // Refrescar el gráfico
     }
 }
